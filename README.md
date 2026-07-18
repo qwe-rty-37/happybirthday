@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Happy Birthday!</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Poppins:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --ink: #4A2A0A;
+    --gold: #FF9F1C;
+    --coral: #FF5D5D;
+    --lavender: #8B4FDB;
+    --paper: #4A2A0A;
+  }
+
+  * { box-sizing: border-box; }
+
+  html, body {
+    margin: 0;
+    min-height: 100%;
+  }
+
+  body {
+    background: linear-gradient(150deg, #FFF3B0 0%, #FFD166 30%, #FF9F5A 65%, #FF6B6B 100%);
+    background-attachment: fixed;
+    font-family: 'Poppins', sans-serif;
+    color: var(--paper);
+    overflow-x: hidden;
+    overflow-y: auto;
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2.5rem 1rem;
+  }
+
+  /* ---------- Rising balloons ---------- */
+  .balloon {
+    position: fixed;
+    bottom: -140px;
+    width: 46px;
+    height: 58px;
+    border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+    opacity: 0.85;
+    animation: rise linear infinite;
+    z-index: 1;
+  }
+  .balloon::after {
+    content: "";
+    position: absolute;
+    bottom: -34px;
+    left: 50%;
+    width: 1px;
+    height: 34px;
+    background: rgba(74,42,10,0.3);
+  }
+  @keyframes rise {
+    0%   { transform: translateY(0) translateX(0) rotate(0deg); }
+    50%  { transform: translateY(-55vh) translateX(20px) rotate(4deg); }
+    100% { transform: translateY(-115vh) translateX(-10px) rotate(-3deg); }
+  }
+
+  /* ---------- Card ---------- */
+  .card {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    padding: 3rem 2.5rem;
+    max-width: 480px;
+  }
+
+  .eyebrow {
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    color: #8B4FDB;
+    margin: 0 0 0.75rem;
+  }
+
+  h1 {
+    font-family: 'Fredoka', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.4rem, 7vw, 3.6rem);
+    line-height: 1.05;
+    margin: 0 0 0.5rem;
+    background: linear-gradient(95deg, #C0392B, #8B4FDB 55%, #D6336C);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .subtitle {
+    font-style: italic;
+    color: rgba(74,42,10,0.75);
+    font-size: 1rem;
+    margin: 0 0 2.5rem;
+  }
+
+  /* ---------- Candle ---------- */
+  .cake-scene {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.4rem;
+    margin-bottom: 1.75rem;
+  }
+
+  .candle-wrap {
+    position: relative;
+    cursor: pointer;
+    user-select: none;
+    padding: 1rem;
+  }
+
+  .candle {
+    width: 14px;
+    height: 60px;
+    margin: 0 auto;
+    background: repeating-linear-gradient(180deg, var(--coral), var(--coral) 8px, var(--paper) 8px, var(--paper) 16px);
+    border-radius: 3px;
+    position: relative;
+  }
+
+  .flame {
+    position: absolute;
+    top: -26px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 16px;
+    height: 26px;
+    background: radial-gradient(ellipse at 50% 70%, #FFF3C4 0%, var(--gold) 45%, var(--coral) 100%);
+    border-radius: 50% 50% 50% 50% / 65% 65% 35% 35%;
+    animation: flicker 1.6s ease-in-out infinite;
+    transform-origin: bottom center;
+    transition: opacity 0.4s ease, transform 0.4s ease;
+  }
+
+  @keyframes flicker {
+    0%, 100% { transform: translateX(-50%) scale(1) rotate(-2deg); }
+    50%      { transform: translateX(-50%) scale(1.08) rotate(3deg); }
+  }
+
+  .flame.out {
+    opacity: 0;
+    transform: translateX(-50%) scale(0.2);
+  }
+
+  .hint {
+    font-size: 0.8rem;
+    color: rgba(74,42,10,0.55);
+    margin-top: 0.9rem;
+    transition: opacity 0.4s ease;
+  }
+  .hint.hidden { opacity: 0; }
+
+  /* ---------- Message ---------- */
+  .message {
+    opacity: 0;
+    max-height: 0;
+    overflow: hidden;
+    transition: opacity 0.6s ease, max-height 0.9s ease;
+  }
+  .message.show {
+    opacity: 1;
+    max-height: 600px;
+  }
+
+  .message p {
+    font-size: 1.05rem;
+    line-height: 1.6;
+    color: var(--paper);
+  }
+
+  .signature {
+    font-family: 'Fredoka', sans-serif;
+    color: #C0392B;
+    margin-top: 0.75rem;
+  }
+
+  /* ---------- Confetti ---------- */
+  .confetti-piece {
+    position: fixed;
+    top: -10px;
+    width: 8px;
+    height: 14px;
+    opacity: 0.9;
+    pointer-events: none;
+    animation: fall linear forwards;
+    z-index: 3;
+  }
+
+  @keyframes fall {
+    to {
+      transform: translateY(110vh) rotate(540deg);
+      opacity: 0.3;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .balloon, .flame { animation: none; }
+    .confetti-piece { animation: none; display: none; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- Background balloons (decorative, generated by JS for varied timing/position) -->
+  <div id="balloons"></div>
+
+  <main class="card">
+    <p class="eyebrow">A little something for</p>
+    <h1 id="nameHeading">Erica</h1>
+    <p class="subtitle">Wishing you a day as wonderful as you are.</p>
+
+    <div class="cake-scene">
+      <div class="candle-wrap" id="candleWrap" role="button" tabindex="0" aria-label="Blow out the candle">
+        <div class="candle">
+          <div class="flame" id="flame"></div>
+        </div>
+      </div>
+      <p class="hint" id="hint">press the candle to open what's next</p>
+    </div>
+
+    <div class="message" id="message">
+      <p>Happy Birthday, Erica. You are not just my eldest sister, you are the beam of sunshine in my life. I pray that God blesses you with His goodness and mercy — that as you step into this new chapter, it brings new blessings, new riches, more goodness, and more love, and may you experience God's blessings like you never have experienced in all your life.</p>
+      <p class="signature">— With love, your sister, Elsie</p>
+    </div>
+  </main>
+
+<script>
+  // ---- Customize here ----
+  const NAME = "Erica"; // change to the birthday person's name
+  document.getElementById('nameHeading').textContent = NAME;
+
+  // ---- Background balloons ----
+  const colors = ['#D6336C', '#8B4FDB', '#2EC4B6', '#C0392B'];
+  const balloonContainer = document.getElementById('balloons');
+  const balloonCount = 5;
+
+  for (let i = 0; i < balloonCount; i++) {
+    const b = document.createElement('div');
+    b.className = 'balloon';
+    b.style.left = (Math.random() * 96) + 'vw';
+    b.style.background = colors[i % colors.length];
+    b.style.animationDuration = (14 + Math.random() * 8) + 's';
+    b.style.animationDelay = (Math.random() * 10) + 's';
+    balloonContainer.appendChild(b);
+  }
+
+  // ---- Candle blow-out + confetti ----
+  const candleWrap = document.getElementById('candleWrap');
+  const flame = document.getElementById('flame');
+  const hint = document.getElementById('hint');
+  const message = document.getElementById('message');
+  let blownOut = false;
+
+  function celebrate() {
+    if (blownOut) return;
+    blownOut = true;
+    flame.classList.add('out');
+    hint.classList.add('hidden');
+    message.classList.add('show');
+    burstConfetti();
+  }
+
+  function burstConfetti() {
+    const pieces = 60;
+    for (let i = 0; i < pieces; i++) {
+      const c = document.createElement('div');
+      c.className = 'confetti-piece';
+      c.style.left = (Math.random() * 100) + 'vw';
+      c.style.background = colors[Math.floor(Math.random() * colors.length)];
+      c.style.animationDuration = (2.2 + Math.random() * 1.8) + 's';
+      c.style.animationDelay = (Math.random() * 0.5) + 's';
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 4500);
+    }
+  }
+
+  candleWrap.addEventListener('click', celebrate);
+  candleWrap.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      celebrate();
+    }
+  });
+</script>
+
+</body>
+</html>
