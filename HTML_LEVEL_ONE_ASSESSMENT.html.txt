@@ -1,0 +1,25 @@
+<html>
+    <head>
+        <title>Assessment</title>
+    </head>
+    <body>
+        <h1>Welcome to my Website</h1>
+        <p>I am excited to eventually want to learn coding.</p>
+        <a href="https://www.facebook.com/ogtechnetwork">Here is the official facebook page of Ogtech Network</a>
+        
+        <h2>What I have learnt so far</h2>
+        <ol>
+            <li>Divs and spans</li>
+            <li>Attributes</li>
+            <li>Lists</li>
+            <li>Links</li>
+            <li>and more</li>  
+        </ol>
+        <p>I am proud of my new career path </p>
+        <p>Personally powered and operated by,</p>
+        <p><strong>Ogtech Network</strong></p>
+        <p>Mentored by,</p>
+        <p><strong>De-Prof</strong></p>
+        <a href="https://www.ogtech.com"> <img src="image.png" width="150px" alt="Ogtech Network logo"></a>
+    </body>
+</html>
